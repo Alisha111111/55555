@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>名片特效</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* 動態星空背景 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: radial-gradient(circle, #2a3b5c, #8b4a4a, #f2c6a0);
+            position: relative;
+        }
+
+        /* 星星效果 */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent 80%);
+            animation: stars 10s linear infinite;
+            z-index: -1;
+        }
+
+        body::after {
+            animation-delay: 5s;
+        }
+
+        @keyframes stars {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+            }
+        }
+
+        /* 名片容器 */
+        .business-card {
+            width: 400px;
+            height: 250px;
+            perspective: 1500px;
+            position: relative;
+        }
+
+        /* 光暈效果 */
+        .business-card:hover::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent);
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.4;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.6;
+            }
+        }
+
+        /* 名片翻轉效果 */
+        .flipper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+
+        .business-card:hover .flipper {
+            transform: rotateY(180deg) rotateX(10deg) rotateZ(5deg);
+        }
+
+        /* 名片前後面樣式 */
+        .front, .back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .business-card:hover .front, 
+        .business-card:hover .back {
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .front {
+            background: linear-gradient(135deg, #d3a6a6, #e8d1d1);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: rotateX(0deg);
+        }
+
+        .front h1 {
+            margin: 0;
+            font-size: 28px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .front p {
+            margin: 5px 0;
+            font-size: 18px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .back {
+            background: linear-gradient(135deg, #cfc7b8, #e3ddd4);
+            color: black;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .back p {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+
+        .back a {
+            color: #005D8C;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .back a:hover {
+            color: #FF5733;
+            text-decoration: underline;
+        }
+
+        .back .icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+            color: #005D8C;
+            animation: bounce 1.5s infinite, scale 1.5s infinite alternate;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes scale {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="business-card">
+        <div class="flipper">
+            <div class="front">
+                <h1>姓名: 王芊晴</h1>
+                <p>學校: 淡江大學</p>
+                <p>科系: 教科一A</p>
+                <p>學號: 413730218</p>
+            </div>
+            <div class="back">
+                <i class="fas fa-envelope icon"></i>
+                <p>信箱: <a href="mailto:WSUNNY4518@GMAIL.COM">WSUNNY4518@GMAIL.COM</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
